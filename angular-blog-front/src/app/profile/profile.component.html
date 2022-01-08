@@ -1,0 +1,105 @@
+
+<div fxLayoutAlign="center center">
+<mat-card class="profileHeader" fxLayoutGap="10px" fxLayoutAlign="center center">
+  <img  mat-card-image class="profileImg" [src]="user?.imageUrl" alt="Blog Image">
+  <mat-card-content>
+    <mat-card-title>Display name: {{ user?.name }} </mat-card-title>
+    <mat-card-subtitle> Username: {{ user?.username }}</mat-card-subtitle>
+    <mat-card-subtitle>Since {{ user?.createdDate | date: "mediumDate" }} </mat-card-subtitle>
+    <mat-card-subtitle> Bio </mat-card-subtitle>
+    <p> {{ user?.bio }} </p>
+  </mat-card-content>
+</mat-card>
+</div>
+
+<mat-tab-group mat-align-tabs="center" dynamicHeight >
+
+    <mat-tab label="Posts">
+
+      <div fxFlex fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+          <mat-card fxLayoutGap="10px" *ngFor="let post of user?.post">
+            <mat-card-header>
+            <mat-card-title> {{ post?.title }} </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image [src]="post?.imageUrl" alt="Blog Image">
+            <mat-card-subtitle> {{ post?.postedDate | date: "mediumDate" }} </mat-card-subtitle>
+            <mat-card-actions>
+              <button (click)="seeOnePost(post?.id)" type="submit" mat-raised-button color="primary">Read More</button>
+              <button *ngIf="user?.username == userService.loginUsername" (click)="onDeletePost(post?.id)" type="submit" mat-raised-button color="primary">Delete</button>
+            </mat-card-actions>
+          </mat-card>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab label="Likes">
+
+      <div fxFlex fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+        <mat-card fxLayoutGap="10px" *ngFor="let userLikePost of user?.likedPost">
+          <mat-card-header>
+          <mat-card-title> {{ userLikePost?.title }} </mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="userLikePost?.imageUrl" alt="Blog Image">
+          <mat-card-subtitle> {{ userLikePost?.postedDate | date: "mediumDate" }} </mat-card-subtitle>
+          <mat-card-actions>
+            <button (click)="seeOnePost(userLikePost?.id)" type="submit" mat-raised-button color="primary">Read Mode</button>
+          </mat-card-actions>
+        </mat-card>
+
+      </div>
+
+      </mat-tab>
+
+    <mat-tab label="Settings" *ngIf="user?.username == userService.loginUsername">
+
+        <div fxFlex fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+          <mat-card class="settings" >
+              <form #updateProfileForm="ngForm" (ngSubmit)="onUpdateUser(updateProfileForm.value)" fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+
+                <input type="hidden" class="form-control" name="id" ngModel="{{ user?.id }}" required />
+      
+
+                <!-- Prazan password se submit.. -->
+                  <mat-form-field appearance="outline">
+                      <mat-label>Password</mat-label>
+                      <input ngModel="{{ user?.password }}" type="password" name="password" matInput placeholder="Password">
+                  </mat-form-field>
+      
+                  <mat-form-field appearance="outline">
+                      <mat-label>Email</mat-label>
+                      <input ngModel="{{ user?.email }}" type="email" name="email" matInput placeholder="Email">
+                  </mat-form-field>
+      
+                  <mat-form-field appearance="outline">
+                      <mat-label>Display Name</mat-label>
+                      <input ngModel="{{ user?.name }}" type="text" name="name" matInput placeholder="Display Name">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Bio</mat-label>
+                    <input ngModel="{{ user?.bio }}" type="text" name="bio" matInput placeholder="Bio">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Profile Picture</mat-label>
+                  <input ngModel="{{ user?.imageUrl}}" type="text" name="imageUrl" matInput placeholder="Image Url">
+              </mat-form-field>
+      
+                  <button type="submit" mat-raised-button color="primary">Update</button><br>      
+              </form>
+          </mat-card>
+
+          <br><form>
+          <input type="hidden" class="form-control" name="id" ngModel="{{ user?.username }}" required />
+          <button (click)="onDeleteUser(user?.username)" type="submit" mat-raised-button color="primary">Delete Account</button>
+          </form>
+
+        </div> 
+
+    </mat-tab>
+  </mat-tab-group>
+  

@@ -1,0 +1,22 @@
+mat-card {
+    width: 60%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main {
+    padding: 2em;
+}
+
+h1 {
+    font-size: 2rem;
+    padding: 0.5em;
+    color:indigo;
+}
+
+mat-form-field {
+    width: 70%;
+}

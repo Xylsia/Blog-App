@@ -1,0 +1,39 @@
+<div class="main" fxFlex fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
+    <mat-card fxLayoutGap="10px">
+        <mat-card-header>
+        <mat-card-title>{{ post?.title }}</mat-card-title>
+        <mat-card-subtitle><a (click)="getUserProfile(post?.username)" style="cursor: pointer"> {{ post?.username }} </a></mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="post?.imageUrl" alt="Blog Image">
+        <mat-card-subtitle> {{ post?.postedDate | date: "mediumDate" }} </mat-card-subtitle>
+        <p> {{ post?.content }} </p>
+        <mat-card-subtitle>Likes: {{ post?.likes }} </mat-card-subtitle>
+        <button (click)="likePost(post, user)" [ngStyle]="{ color: like === 'Unlike' ? '#18BC9C' : '#000000' }" type="submit" mat-raised-button color="primary">Like</button><br>
+    </mat-card>
+
+    <mat-card>
+        <form #commentForm="ngForm" (ngSubmit)="onAddComment(commentForm, post)" fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+
+            <h1>Leave a comment</h1>
+
+            <input type="hidden" name="username" ngModel="{{ user?.username }}" />
+            <input type="hidden" name="postId" ngModel="{{ post?.id }}" />
+
+            <mat-form-field appearance="fill">
+                <mat-label>Content</mat-label>
+                <textarea matInput name="content" [(ngModel)]="comment.content"  placeholder="Text..." rows="8"></textarea>
+            </mat-form-field>
+
+            <button [disabled]="comment.content == ''"  type="submit" mat-raised-button color="primary">Comment</button><br>
+
+        </form>
+    </mat-card>
+
+    <mat-card *ngFor="let comment of post?.commentList">
+            <mat-card-header>
+            <mat-card-title><a (click)="getUserProfile(comment.username)"  style="cursor: pointer"> {{ comment.username }} </a></mat-card-title>
+            <mat-card-subtitle> {{ comment.postedDate | date: "short" }} </mat-card-subtitle>
+            </mat-card-header>
+            <p> {{ comment.content }} </p>
+    </mat-card>
+</div>

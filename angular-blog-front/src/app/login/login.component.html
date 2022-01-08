@@ -1,0 +1,27 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+    <mat-card>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)" fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+
+            <h1>Sign in</h1>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input type="text" name="username" matInput placeholder="Username" required ngModel #usernameInput="ngModel">
+                <span *ngIf="usernameInput.invalid && usernameInput.touched">Please enter username</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" name="password" matInput placeholder="Password" required ngModel #passwordInput="ngModel">
+                <span *ngIf="passwordInput.invalid && passwordInput.touched">Please enter password.</span>
+            </mat-form-field>
+
+            <button [disabled]="loginForm.invalid" type="submit" mat-raised-button color="primary">Submit</button><br>
+
+            <p>New here? <a routerLink="/register">Sign up here</a></p>
+
+        </form>
+    </mat-card>
+
+</div>       

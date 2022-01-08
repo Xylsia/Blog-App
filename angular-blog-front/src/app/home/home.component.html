@@ -1,0 +1,26 @@
+<div fxFlex fxLayout="column" fxLayoutGap="20px" > 
+
+        <mat-toolbar class="search" fxFlex fxLayoutAlign="center center">
+                <mat-form-field fxLayout="column">
+                    <mat-label>Search</mat-label>
+                    <input (ngModelChange)="onSearchUsers($event)" ngModel matInput placeholder="search users..">
+                    <div class="">
+                        <div *ngFor="let userSearch of searchedUser" id="searchList">
+                          <a (click)="getSearchUserProfile(userSearch?.username)" style="cursor: pointer"> {{ userSearch.username }} </a>
+                        </div>
+                      </div>
+                </mat-form-field> 
+        </mat-toolbar>
+
+    <div fxFlex fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
+        <mat-card fxLayoutGap="10px" *ngFor="let post of posts">
+            <mat-card-header>
+            <mat-card-title> {{ post.title }} </mat-card-title>
+            <mat-card-subtitle><a (click)="getUserProfile(post.username)" style="cursor: pointer"> {{ post.username }} </a></mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]=" post.imageUrl" alt="Blog Image">
+            <mat-card-subtitle> {{ post.postedDate | date: "mediumDate" }} </mat-card-subtitle>
+            <button (click)="seeOnePost(post.id)" type="submit" mat-raised-button color="primary"> Read More </button>
+        </mat-card>
+    </div>
+</div>

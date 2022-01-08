@@ -1,0 +1,22 @@
+mat-form-field {
+    width: 50%;
+}
+
+.profileHeader {
+    width: 80%
+}
+
+mat-card {
+    width: 18%;
+    margin-top: 3em;
+}
+
+.settings{
+    width: 40%;
+    margin-top: 3em;
+}
+
+.profileImg {
+    width: 15%;
+    height: 15%;
+}

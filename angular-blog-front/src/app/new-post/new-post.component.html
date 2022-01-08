@@ -1,0 +1,30 @@
+<div fxFlex fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+    <mat-card>
+        <form #postForm="ngForm" (ngSubmit)="onNewPost(postForm.value)" fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+
+            <h1>Write a new Post</h1>
+            
+                <input type="hidden" name="username" [(ngModel)]="userName" required />
+
+            <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input type="text" name="title" matInput placeholder="Title" required ngModel #titleInput="ngModel">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Image</mat-label>
+                <input type="text" name="imageUrl" matInput placeholder="Image Url" required ngModel #imageInput="ngModel">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Content</mat-label>
+                <textarea matInput name="content" placeholder="Text..." rows="20" required ngModel contentInput="ngModel"></textarea>
+            </mat-form-field>
+
+            <button [disabled]="postForm.invalid" type="submit" mat-raised-button color="primary">Submit</button><br>
+
+        </form>
+    </mat-card>
+
+</div>  
