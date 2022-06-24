@@ -1,4 +1,4 @@
-# ISA Blog App
+Blog App
  
 University exam project
 
